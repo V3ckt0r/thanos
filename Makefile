@@ -25,10 +25,13 @@ build:
 install-tools:
 	@echo ">> fetching goimports"
 	@go get -u golang.org/x/tools/cmd/goimports
+	@echo ">> Fetched"
 	@echo ">> fetching promu"
 	@go get -u github.com/prometheus/promu
+	@echo ">> Fetched"
 	@echo ">> fetching dep"
 	@go get -u github.com/golang/dep/cmd/dep
+	@echo ">> Fetched"
 
 test-deps:
 	@go install github.com/improbable-eng/thanos/cmd/thanos

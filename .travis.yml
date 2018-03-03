@@ -1,28 +1,16 @@
 sudo: required
 
-matrix:
-  include:
-    - language: go
-      go:
-      - 1.10.x
-      - master
+language: go
+go:
+- 1.10.x
+- master
 
-      go_import_path: github.com/improbable-eng/thanos
+go_import_path: github.com/improbable-eng/thanos
 
-      install:
-      - make install-tools
-      - dep ensure
+install:
+- make install-tools
+- dep ensure
 
-      script:
-      - make format test
+script:
+- make format test
 
-    - language: bash
-      services:
-        - docker
-      script:
-        - docker build -t vect0r/thanos .
-      after_success:
-        - if [ "$TRAVIS_BRANCH" == "V3ckt0r/travis-ci" ]; then
-          docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-          docker puhs vect0r/thanos;
-          fi

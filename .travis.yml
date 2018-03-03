@@ -21,5 +21,5 @@ after_success:
 - if [ "$TRAVIS_BRANCH" == "V3ckt0r/travis-ci" ]; then
   docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   fi
-- docker build -t vect0r/thanos .
+- docker build -t vect0r/thanos $HOME/gopath/src/github.com/improbable-eng/thanos
 - docker push vect0r/thanos

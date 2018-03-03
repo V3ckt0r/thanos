@@ -11,17 +11,18 @@ services:
 go_import_path: github.com/improbable-eng/thanos
 
 install:
+- openssl aes-256-cbc -K $encrypted_df79f74ec4fb_key -iv $encrypted_df79f74ec4fb_iv
+  -in test/travis-gcs-creds.json.enc -out ${GOPATH}/src/github.com/improbable-eng/thanos/travis-gcs-creds.json -d
 - make install-tools
 - dep ensure
 
 script:
 - make format test
-- make build
+- make docker
 
 after_success:
 - if [ "$TRAVIS_BRANCH" == "V3ckt0r/travis-ci" ]; then
   docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   fi
 - cd $HOME/gopath/src/github.com/improbable-eng/thanos
-- docker build -t vect0r/thanos .
-- docker push vect0r/thanos
+- make docker-push
